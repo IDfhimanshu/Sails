@@ -1,0 +1,64 @@
+<title>Travel | User signup</title>
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Travel">
+  <!--STYLES-->
+  <link rel="stylesheet" href="/styles/materialize.min.css">
+  <link rel="stylesheet" href="/styles/importer.css">
+  <link rel="stylesheet" href="/styles/material-font.css">
+  <!--STYLES END-->
+</head>
+
+<body ng-app="TravelApp" ng-controller="signupCtrl" ng-cloak>
+
+  <div class="row">
+    <form class="col s12" ng-model="user">
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="first_name" name="firstname" type="text" class="validate" ng-model=user.firstname>
+          <label for="first_name">First Name</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="last_name" name="lastname" type="text" class="validate" ng-model="user.lastname">
+          <label for="last_name">Last Name</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="email" type="email" name="email" class="validate" ng-model="user.email">
+          <label for="email">Email</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="password" type="password" name="password" class="validate" ng-model="user.password">
+          <label for="password">Password</label>
+        </div>
+      </div>
+      <button class="btn waves-effect waves-light" type="submit" name="action" ng-click="userRegistration(user)">Register
+      </button>
+    </form>
+  </div>
+
+  <!--SCRIPTS-->
+  <script src="/js/dependencies/sails.io.js"></script>
+  <script src="/js/dependencies/angular.min.js"></script>
+  <script src="/js/dependencies/angualr-route.min.js"></script>
+  <script src="/js/dependencies/jqury-2.2.4.min.js"></script>
+  <script src="/js/dependencies/materialize.min.js"></script>
+  <script src="/js/public/Travel/AppModule.js"></script>
+  <script src="/js/public/Travel/signupCtrl.js"></script>
+  <!--SCRIPTS END-->
+</body>
+
+</html>
