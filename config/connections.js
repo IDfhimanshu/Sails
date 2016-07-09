@@ -28,9 +28,9 @@ module.exports.connections = {
   * Installed by default.                                                    *
   *                                                                          *
   ***************************************************************************/
-  localDiskDb: {
-    adapter: 'sails-disk'
-  },
+  // localDiskDb: {
+  //   adapter: 'sails-disk'
+  // },
 
   /***************************************************************************
   *                                                                          *
@@ -41,26 +41,13 @@ module.exports.connections = {
   *                                                                          *
   ***************************************************************************/
   //set environment variable
-  if(sails.config.globals.ENV === 'production'){
-
-  Travel_Mysql: {
-    adapter: 'sails-mysql',
-    host: 'localhost',
-    user: 'YOUR_MYSQL_USER', //optional
-    password: 'YOUR_MYSQL_PASSWORD', //optional
-    database: 'YOUR_MYSQL_DB' //optional
-
-  },
-}
-else{
-  Travel_Mysql: {
+  local_mysql: {
     adapter: 'sails-mysql',
     host: 'localhost',
     user: 'root', //optional
     password: 'admin', //optional
     database: 'Travel' //optional
-  }
-}
+  },
 
   /***************************************************************************
   *                                                                          *

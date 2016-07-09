@@ -6,13 +6,16 @@
  */
 
 module.exports = {
+  connection: 'local_mysql',
+	autoCreatedAt: false,
+	autoUpdatedAt: false,
 //set required attributes here
   attributes: {
-    firstname:{
+    first_name:{
       type:'string',
       required:true
     },
-    lastname:{
+    last_name:{
       type:'string'
     },
     email:{
@@ -20,14 +23,36 @@ module.exports = {
       required:true,
       unique:true
     },
-    encryptedPassword:{
+    password:{
       type:'string',
       required:true
     },
-    last_login:{
-      type:'date',
+    auth_token:{
+      type:'string',
+      required:true
+    },
+    username:{
+      type:'string',
       required:true,
-      defaultsTo:new Date(0)
+      unique:true
+    },
+    verify_code:{
+      type:'string'
+    },
+    verified:{
+      type: 'boolean',
+      defaultsTo : false
+    },
+    platform:{
+      type:'string'
+    },
+    date_added:{
+      type: 'datetime',
+      defaultsTo: function() {return new Date();}
+    },
+    date_modified:{
+      type: 'datetime',
+      defaultsTo: function() {return new Date();}
     }
   }
 };

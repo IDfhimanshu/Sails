@@ -38,9 +38,7 @@ module.exports.routes = {
   'GET /signup': {
     view: 'signup'
   },
-  'POST /signup':'UsersController.signup',
-  'GET /getData':'UsersController.getData',
-  'GET /anotherData':'UsersController.anotherData'
+  'POST /signup':'UsersController.signup'
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *

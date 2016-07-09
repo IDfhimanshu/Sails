@@ -9,18 +9,7 @@
  * http://sailsjs.org/#!/documentation/reference/sails.config/sails.config.globals.html
  */
 module.exports.globals = {
-
-  //setting environment variable based to url 
-if(sails.getBaseUrl() == 'https://travelcom.com'){
-ENV = 'production';
-}
-elseif(sails.getBaseUrl() == 'http//localhost:1337'){
-
-  ENV = 'development';
-}
-else{
-  ENV  =  'testing';
-}
+    
   /****************************************************************************
   *                                                                           *
   * Expose the lodash installed in Sails core as a global variable. If this   *

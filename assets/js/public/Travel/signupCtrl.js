@@ -13,7 +13,6 @@ app.controller('signupCtrl', function($scope, $http,$location) {
    */
   $scope.user = {};
   $scope.userRegistration = function(user) {
-    console.log($scope.user);
     $http({
         url: '/signup',
         method: 'POST',
@@ -24,11 +23,13 @@ app.controller('signupCtrl', function($scope, $http,$location) {
           'firstname' : $scope.user.firstname,
           'lastname':$scope.user.lastname,
           'email':$scope.user.email,
-          'password':$scope.user.password
+          'password':$scope.user.password,
+          'platform':'web'
       }
     })
-      .then(function onSuccess() {
-        window.location='/users';
+      .then(function onSuccess(response) {
+        // window.location='/users';
+        console.log(response);
       })
       .catch(function onError(sailsresponse) {
         console.log(sailsresponse);
