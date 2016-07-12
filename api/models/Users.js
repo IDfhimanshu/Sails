@@ -6,9 +6,6 @@
  */
 
 module.exports = {
-  connection: 'local_mysql',
-	autoCreatedAt: false,
-	autoUpdatedAt: false,
 //set required attributes here
   attributes: {
     first_name:{
@@ -19,9 +16,10 @@ module.exports = {
       type:'string'
     },
     email:{
-      type:'email',
-      required:true,
-      unique:true
+      type: 'string',
+      email: true,
+      required: true,
+      unique: true
     },
     password:{
       type:'string',
@@ -46,6 +44,12 @@ module.exports = {
     platform:{
       type:'string'
     },
+    facebook_id:{
+      type:'string'
+    },
+    signup_method:{
+      type:'string'
+    },
     date_added:{
       type: 'datetime',
       defaultsTo: function() {return new Date();}
@@ -53,6 +57,38 @@ module.exports = {
     date_modified:{
       type: 'datetime',
       defaultsTo: function() {return new Date();}
+    },
+    //to Json explicitily chnage into json and delete sensitive field
+    toJson: function(req,res){
+        var obj = this.toObject();
+        delete obj._csrf;
+        return obj;
+    }
+  },
+  generateUserName : function(data,callback) {
+    try{
+      //if no iteration then select blank Otherwise increament by one
+        var generated = data.iteration > 0 ? (data.firstname+'-'+data.lastname+data.iteration) : data.firstname+'-'+data.lastname;
+
+        //get if username alreay exists
+        Users.count({username:generated}).
+        then(function onSuccess(response) {
+          if (response > 0) {
+            data.iteration++;
+            Users.generateUserName(data,callback);
+          }
+        else if(response  ==  0){
+          return callback(null,generated.toLowerCase());
+          }
+          else{
+            return res.negotiate(response);
+          }
+        })
+        .catch(function onError(sailsresponse) {
+          return callback(sailsresponse);
+        })
+    } catch (ex){
+      return callback(new Error(ex.message), '0');
     }
   }
 };

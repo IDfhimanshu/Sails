@@ -36,9 +36,17 @@ module.exports.routes = {
     view: 'homepage',
   },
   'GET /signup': {
-    view: 'signup'
+    view: 'user/signup',
   },
-  'POST /signup':'UsersController.signup'
+  //use :any to route to any file
+  'GET /:any': {
+   controller: "ProfileController",
+   action: "index",
+   skipAssets: true
+ },
+  'POST /signup':'UsersController.signup',
+  'POST /login':'UsersController.login',
+  'POST /sociallogin':'UsersController.socialLogin',
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *

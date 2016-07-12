@@ -5,7 +5,7 @@
 date - July9,2016
 purpose - for creating user table
 */
-CREATE TABLE `Travel`.`user` (
+CREATE TABLE `Travel`.`users` (
   `id` INT NOT NULL,
   `first_name` VARCHAR(45) NULL,
   `last_name` VARCHAR(45) NULL,
@@ -22,3 +22,7 @@ CREATE TABLE `Travel`.`user` (
   UNIQUE INDEX `id_UNIQUE` (`id` ASC),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC),
   UNIQUE INDEX `username_UNIQUE` (`username` ASC));
+
+  /*Add singup  method for*/
+  ALTER TABLE `Travel`.`users`
+  ADD COLUMN `signup_method` VARCHAR(45) NULL DEFAULT NULL AFTER `platform`;
