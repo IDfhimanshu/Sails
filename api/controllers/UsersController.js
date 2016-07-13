@@ -16,8 +16,6 @@ module.exports = {
     // Encrypt a string using the BCrypt algorithm.
     //get firstname from user name
     //
-    console.log(req.params.all());
-    return;
     var UserFirstName = GenerateUserProperty.GenerateFirstName(req.param('firstname'), ' ', 0);
     //function to generate unique user name
     Users.generateUserName({
@@ -43,9 +41,18 @@ module.exports = {
         },
         // OK.
         success: function(encryptedPassword) {
+
+          //generate a user gravatar avatar(user image url)
+          require('machinepack-gravatar').getImageUrl({
+          emailAddress: req.param('email')
+            }).exec({
+          error: function(err) {
+            return res.negotiate(err);
+          },success: function(gravatarUrl) {
           // Create a User with the params sent from
           // the sign-up form --> signup.ejs
           //generate a random string auth_token
+
           var auth_token = GenerateUserProperty.GenerateAuth(30);
           //generate verify code
           var verifyCode = GenerateUserProperty.GenerateAuth(30);
@@ -56,6 +63,7 @@ module.exports = {
             password: encryptedPassword,
             auth_token: auth_token,
             username: UserName,
+            gravatar_url:gravatarUrl,
             verify_code: verifyCode,
             verified: false,
             platform: req.param('platform'),
@@ -79,11 +87,18 @@ module.exports = {
               }
             }
             // Send back the id of the new user
-            return res.json({
-              id: newUser.id
-            });
-
+            req.session.user = {
+              id  : user.id,
+              firstname : user.first_name,
+              lastname  : user.last_name,
+              username  : user.username,
+              auth_token : user.auth_token,
+              email : user.email
+            }
+            return res.ok();
           });
+        }
+      });
         }
       });
     });
@@ -147,20 +162,27 @@ module.exports = {
         //generate a random password
           var password = GenerateUserProperty.GenerateAuth(7);
         //get the user data to register a user
-          req._csrf =  req.param('_csrf');
-          req.firstname = firstname;
-          req.lastname = lastname;
-          req.email =  req.param('email');
-          req.password = password;
-          req.platform = 'web';
-          req.facebook_id =  req.param('facebook_id');
-          req.signup_method =  'facebook';
+          req.params._csrf =  req.param('_csrf');
+          req.params.firstname = firstname;
+          req.params.lastname = lastname;
+          req.params.email =  req.param('email');
+          req.params.password = password;
+          req.params.platform = 'web';
+          req.params.facebook_id =  req.param('facebook_id');
+          req.params.signup_method =  'facebook';
         // register user, call itself above register method
         sails.controllers.users.signup(req, res);
       }
       //if user exists the return
       else if(user){
-          req.session.me = user.id;
+          req.session.user = {
+            id  : user.id,
+            firstname : user.first_name,
+            lastname  : user.last_name,
+            username  : user.username,
+            auth_token : user.auth_token,
+            email : user.email
+          }
           return res.ok();
     }
     else{

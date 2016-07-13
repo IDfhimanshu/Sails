@@ -34,6 +34,9 @@ module.exports = {
       required:true,
       unique:true
     },
+    gravatar_url:{
+      type:'string'
+    },
     verify_code:{
       type:'string'
     },
