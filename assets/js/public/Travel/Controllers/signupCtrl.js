@@ -6,7 +6,13 @@
 
 'use strict';
 
-app.controller('signupCtrl', function($scope, $http,$location,$facebook,userFactory) {
+app.controller('signupCtrl', function($scope, $http,$location,$facebook,userFactory,oAuthService,loginServices) {
+
+  //first check whether user is logged in or not
+  if(oAuthService.check('uuid')){
+      window.location.href = '/hello';
+  }
+  else{
   /*
     @user registration function
     @param - user
@@ -87,7 +93,8 @@ app.controller('signupCtrl', function($scope, $http,$location,$facebook,userFact
           })
       },
       function(err) {
-        
+
       });
   }
+}
 });

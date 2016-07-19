@@ -1,6 +1,6 @@
 'use strict';
 // Declare app level module which depends on filters, and services
-var app = angular.module('TravelApp', ['ngRoute','ngFacebook']);
+var app = angular.module('TravelApp', ['ngRoute','ngFacebook','ngCookies']);
 
 //set config for facebook login
 app.config( function( $facebookProvider ) {

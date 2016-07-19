@@ -86,16 +86,19 @@ module.exports = {
                 return res.negotiate(err);
               }
             }
-            // Send back the id of the new user
+            //store session if user created su
             req.session.user = {
-              id  : user.id,
-              firstname : user.first_name,
-              lastname  : user.last_name,
-              username  : user.username,
-              auth_token : user.auth_token,
-              email : user.email
+              id  : newUser.id,
+              firstname : newUser.first_name,
+              lastname  : newUser.last_name,
+              username  : newUser.username,
+              auth_token : newUser.auth_token,
+              email : newUser.email
             }
-            return res.ok();
+            // Send back the id of the new user
+            return res.json({
+                id: newUser.id
+              });
           });
         }
       });
@@ -173,7 +176,7 @@ module.exports = {
         // register user, call itself above register method
         sails.controllers.users.signup(req, res);
       }
-      //if user exists the return
+      //if user exists the store session
       else if(user){
           req.session.user = {
             id  : user.id,
@@ -183,7 +186,10 @@ module.exports = {
             auth_token : user.auth_token,
             email : user.email
           }
-          return res.ok();
+          //reutrn user_id
+          return res.json({
+              id: newUser.id
+            });
     }
     else{
 

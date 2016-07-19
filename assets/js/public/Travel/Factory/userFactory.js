@@ -4,7 +4,7 @@
  */
 
 'use strict';
-app.factory('userFactory', function($http, $location) {
+app.factory('userFactory', function($http, $location,cookieService) {
 
   return {
 
@@ -31,10 +31,10 @@ app.factory('userFactory', function($http, $location) {
       },
       //function for logging in user through facebook
       socialLogin: function(data){
-        console.log(data);
           var $promise = $http.post('/sociallogin',data);
           $promise.then(function onSuccess(response){
-              console.log(response);
+            //set cookie
+            cookieService.set('uuid', response.data.id);
           })
           .catch(function onError(){
 
