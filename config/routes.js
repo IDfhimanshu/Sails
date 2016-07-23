@@ -38,12 +38,18 @@ module.exports.routes = {
   'GET /signup': {
     view: 'user/signup',
   },
+  //for verify email address
+  'GET /verify': {
+   controller: "EmailVerifyController",
+   action: "index",
+   view: 'email/verify'
+ },
   //use :any to route to any file
   'GET /:any': {
    controller: "ProfileController",
-   action: "index",
-   skipAssets: true
+   action: "index"
  },
+
   'POST /signup':'UsersController.signup',
   'POST /login':'UsersController.login',
   'POST /sociallogin':'UsersController.socialLogin',

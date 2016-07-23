@@ -10,7 +10,9 @@ sendWelcomeMail : function(req,res) {
  sails.hooks.email.send(
  "testEmail",
  {
-   Name: req.first_name
+   Name: req.first_name,
+   verify_code:req.verify_code,
+   tuid:req.id
  },
  {
  to: req.email,
