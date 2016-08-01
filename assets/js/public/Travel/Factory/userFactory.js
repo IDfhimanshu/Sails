@@ -33,8 +33,7 @@ app.factory('userFactory', function($http, $location,cookieService) {
       socialLogin: function(data){
           var $promise = $http.post('/sociallogin',data);
           $promise.then(function onSuccess(response){
-            //set cookie
-            cookieService.set('uuid', response.data.id);
+        
           })
           .catch(function onError(){
 

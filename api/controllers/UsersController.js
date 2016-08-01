@@ -86,15 +86,20 @@ module.exports = {
                 return res.negotiate(err);
               }
             }
-            //store session if user created su
-            req.session.user = {
-              id  : newUser.id,
-              firstname : newUser.first_name,
-              lastname  : newUser.last_name,
-              username  : newUser.username,
-              auth_token : newUser.auth_token,
-              email : newUser.email
-            }
+            //set server side cookie
+            //encode a user_id and set into cookie
+              var encodedString = GenerateUserProperty.GenerateAuth(5);
+              // res.cookie('TSCID', new Buffer(encodedString+'/'+newUser.id).toString('base64') , {
+              //   expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+              //   httpOnly: false
+              // });
+              // res.cookie('TSCAT', new Buffer(newUser.auth_token).toString('base64') , {
+              //   expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+              //   httpOnly: false
+              // });
+              Mailer.sendWelcomeMail(newUser);
+              return res.ok();
+
             // Send back the id of the new user
             return res.json({
                 id: newUser.id
@@ -178,18 +183,19 @@ module.exports = {
       }
       //if user exists the store session
       else if(user){
-          req.session.user = {
-            id  : user.id,
-            firstname : user.first_name,
-            lastname  : user.last_name,
-            username  : user.username,
-            auth_token : user.auth_token,
-            email : user.email
-          }
-          //reutrn user_id
-          return res.json({
-              id: newUser.id
+          //set server side cookie
+          //encode a user_id and set into cookie
+          var encodedString = GenerateUserProperty.GenerateAuth(5);
+            res.cookie('TSCID', new Buffer(encodedString+'/'+user.id).toString('base64') , {
+              expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+              httpOnly: false
             });
+            res.cookie('TSCAT', new Buffer(user.auth_token).toString('base64') , {
+              expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+              httpOnly: false
+            });
+          //reutrn user_id
+          return res.ok();
     }
     else{
 

@@ -8,7 +8,7 @@ app.factory('loginServices', function($http, $rootScope,cookieService) {
   return {
     //function to get cookie value if stored and return true else false
     is_logged: function() {
-      if (cookieService.get('uuid')) {
+      if (cookieService.get('TSCID') && cookieService.get('TSCAT')) {
         return true;
       } else {
         return false;
@@ -16,8 +16,7 @@ app.factory('loginServices', function($http, $rootScope,cookieService) {
     },
 
     logout: function() {
-
-      cookieService.destroy('Tooler_apiValue');
+      cookieService.destroy('TSCID');
       $rootScope.islogged = false;
 
     }

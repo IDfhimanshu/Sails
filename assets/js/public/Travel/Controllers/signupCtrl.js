@@ -9,7 +9,7 @@
 app.controller('signupCtrl', function($scope, $http,$location,$facebook,userFactory,oAuthService,loginServices) {
 
   //first check whether user is logged in or not
-  if(oAuthService.check('uuid')){
+  if(loginServices.is_logged()){
       window.location.href = '/hello';
   }
   else{
