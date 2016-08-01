@@ -1,0 +1,133 @@
+<title>Travel | User trips</title>
+<!DOCTYPE html>
+        <!--
+        To change this license header, choose License Headers in Project Properties.
+        To change this template file, choose Tools | Templates
+        and open the template in the editor.
+        -->
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="author" content="Travel"/>
+    <!--STYLES-->
+    <link rel="stylesheet" href="/styles/materialize.min.css">
+    <link rel="stylesheet" href="/styles/importer.css">
+    <link rel="stylesheet" href="/styles/material-font.css">
+    <!--STYLES END-->
+</head>
+
+<body ng-app="TravelApp" ng-controller="plantripCtrl" ng-init="init();"  ng-cloak>
+<div class="container">
+
+    <div class="row">
+       <div class="col m12">
+           <h2 class="center-align">PlanTrip</h2>
+           <div class="row">
+               <form method="post" name="tripForm" class="col s12">
+                   <input type="hidden" id="_csrfid" name="_csrf"  value='<%= _csrf %>'>
+                   <label for="expected_date">Expected Date</label>
+                   <div class="row">
+                       <div class="input-field col s4">
+                           <select ng-model="trip.months" ng-options="option.id as option.month for option in months" ng-required="true" />
+                           <option value="" disabled selected>Month</option>
+                       </select>
+                       </div>
+                       <div class="input-field col s4">
+                           <input id="expected_daay" type="text" placeholder="Day" ng-model="trip.day" ng-keypress="filterValue($event)" ng-required="true" />
+                       </div>
+                       <div class="input-field col s4">
+                           <input id="expected_year" type="text" placeholder="Year" ng-model="trip.year" ng-keypress="filterValue($event)" ng-required="true" />
+                       </div>
+                   </div>
+                   <div class="row">
+                       <div class="input-field col s12">
+                           <input id="duration" type="text" ng-model="trip.duration" ng-required="true" />
+                           <label for="duration">Trip Duration</label>
+                       </div>
+                   </div>
+                   <div class="row">
+                       <div class="input-field col s12">
+                           <input id="type" type="text" ng-model="trip.type" ng-required="true" />
+                           <label for="type">Trip Type</label>
+                       </div>
+                   </div>
+
+                   <div class="row">
+                       <div class="input-field col s12">
+                           <textarea id="description" class="materialize-textarea" ng-required="true" ng-model="trip.description"></textarea>
+                           <label for="description">Description</label>
+                       </div>
+                   </div>
+
+                   <div class="row">
+                       <div class="input-field col s12">
+                           <input id="place" type="text" ng-model="trip.place" ng-required="true" />
+                           <label for="place">Place</label>
+                       </div>
+                   </div>
+
+                   <div class="row">
+                       <div class="input-field col s12">
+                            <select ng-model="trip.privacy" ng-options="options for options in privacy_options" ng-required="true" />
+                            <option value="" disabled selected>Choose your privacy option</option>
+                            </select>
+                           <!--<label for="privacy">Privacy</label>-->
+                       </div>
+                   </div>
+                   <div class="row">
+                   <div class="input-field col s12">
+                   <form action="post">
+                       <div class="file-field input-field">
+                           <div class="btn">
+                               <span>File</span>
+                               <input type="file" multiple>
+                           </div>
+                           <div class="file-path-wrapper">
+                               <input class="file-path validate" type="text" placeholder="Upload one or more files" ng-required="true" />
+                           </div>
+                       </div>
+                   </form>
+                   </div>
+                   </div>
+
+                   <div class="row">
+                       <div class="col m12">
+                           <p class="right-align">
+                               <button class="btn btn-large waves-effect waves-light" type="button" name="action" ng-disabled="tripForm.$invalid" ng-click="createPersonalTrip()">Create Trip</button>
+                           </p>
+                       </div>
+                   </div>
+                   <div class="row">
+                       <div class="col m12">
+
+                       </div>
+                   </div>
+
+               </form>
+           </div>
+       </div>
+    </div>
+</div>
+<!--SCRIPTS-->
+<script src="/js/dependencies/sails.io.js"></script>
+<script src="/js/dependencies/angular.min.js"></script>
+<script src="/js/dependencies/angualr-route.min.js"></script>
+<script src="/js/dependencies/angular-cookie.min.js"></script>
+<script src="/js/dependencies/jqury-2.2.4.min.js"></script>
+<script src="/js/dependencies/materialize.min.js"></script>
+<script src="/js/dependencies/ngFacebook.js"></script>
+<script src="/js/public/Travel/AppModule.js"></script>
+<script src="/js/public/Travel/Controllers/plantripCtrl.js"></script>
+<script src="/js/public/Travel/Controllers/signupCtrl.js"></script>
+<script src="/js/public/Travel/Factory/tripFactory.js"></script>
+<script src="/js/public/Travel/Factory/userFactory.js"></script>
+<script src="/js/public/Travel/Services/cookieService.js"></script>
+<script src="/js/public/Travel/Services/loginServices.js"></script>
+<script src="/js/public/Travel/Services/oAuthService.js"></script>
+<script src="/js/public/Travel/Services/usernameProperty.js"></script>
+<!--SCRIPTS END-->
+</body>
+</html>
