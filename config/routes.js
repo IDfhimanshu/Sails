@@ -38,6 +38,9 @@ module.exports.routes = {
   'GET /signup': {
     view: 'user/signup',
   },
+  'GET /plantrip' : {
+    view: 'user/plantrip'
+  },
   //use :any to route to any file
   'GET /:any': {
    controller: "ProfileController",
@@ -47,6 +50,7 @@ module.exports.routes = {
   'POST /signup':'UsersController.signup',
   'POST /login':'UsersController.login',
   'POST /sociallogin':'UsersController.socialLogin',
+  'POST /plantrip' : 'PlantripController.Trip',
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *
